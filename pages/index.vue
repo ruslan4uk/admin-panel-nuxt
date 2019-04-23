@@ -7,10 +7,8 @@
 
 <script>
 
-export default {
-  components: {
-    
-  }
+export default {  
+    middleware: 'auth',
 }
 </script>
 

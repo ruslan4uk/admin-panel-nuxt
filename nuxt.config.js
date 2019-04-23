@@ -57,7 +57,10 @@ module.exports = {
     /**
      * Css
      */
-    css: ['~assets/sass/app.sass'],
+    css: [ 
+        //'./node_modules/bootstrap/dist/css/bootstrap.min.css',
+        '~assets/sass/app.sass',
+    ],
 
     /**
      * Auth
@@ -75,13 +78,17 @@ module.exports = {
                 logout: {
                   method: 'get',
                   url: 'auth/logout', method: 'post'
-                }
+                },
+                // dashboard: {
+                //     url: 'dashboard/index', method: 'get', propertyName: 'data'
+                // }
               }
             }
           },
           redirect: {
+            logout: '/auth/login',
             login: '/auth/login',
-            home: '/'
+            home: '/auth/login'
           },
     },
 
@@ -92,6 +99,7 @@ module.exports = {
         // Simple usage
         '@nuxtjs/axios',
         '@nuxtjs/auth',
+        'bootstrap-vue/nuxt',
     ],
 
     /**
@@ -108,21 +116,7 @@ module.exports = {
         /**
          * Run ESLint on save
          */
-        vendor: ['vuetify'],
         extractCSS: true,
-        // extend(config, {
-        //     isDev,
-        //     isClient,
-        // }) {
-        //     if (isDev && isClient) {
-        //         config.module.rules.push({
-        //             enforce: 'pre',
-        //             test: /\.(js|vue)$/,
-        //             loader: 'eslint-loader',
-        //             exclude: /(node_modules)/
-        //         })
-        //     }
-        // }
         extend(config, ctx) {},
         
     }
