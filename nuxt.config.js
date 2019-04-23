@@ -1,3 +1,4 @@
+
 module.exports = {
     debug: false,
     mode: 'universal',
@@ -24,10 +25,6 @@ module.exports = {
                 type: 'image/x-icon',
                 href: '/favicon.ico'
             },
-            {
-                rel: 'stylesheet',
-                href: 'https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css'
-            },
         ],
     },
 
@@ -37,6 +34,7 @@ module.exports = {
     loading: {
         color: '#3B8070',
     },
+
 
     /**
      * Route
@@ -54,7 +52,12 @@ module.exports = {
         './plugins/mixins/validation',
         './plugins/mixins/user',
         './plugins/axios',
-   ],
+    ],
+
+    /**
+     * Css
+     */
+    css: ['~assets/sass/app.sass'],
 
     /**
      * Auth
@@ -91,14 +94,12 @@ module.exports = {
         '@nuxtjs/auth',
     ],
 
-
     /**
      * Axios config
      */
     axios: {
         baseURL: 'http://localhost:8003/api/v2',
     },
-
 
     /**
      * Build configuration
@@ -107,6 +108,7 @@ module.exports = {
         /**
          * Run ESLint on save
          */
+        vendor: ['vuetify'],
         extractCSS: true,
         // extend(config, {
         //     isDev,
@@ -121,6 +123,7 @@ module.exports = {
         //         })
         //     }
         // }
-        extend(config, ctx) {}
+        extend(config, ctx) {},
+        
     }
 }

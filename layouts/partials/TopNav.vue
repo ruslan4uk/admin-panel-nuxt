@@ -1,4 +1,5 @@
 <template>
+<div>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container">
             <nuxt-link to="/" class="navbar-brand">EG Admin Panel</nuxt-link>
@@ -45,11 +46,12 @@
             </div>
         </div>
     </nav>
+</div>
 </template>
 
 <script>
 export default {
-
+    
 };
 </script>
 
