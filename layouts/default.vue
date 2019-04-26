@@ -1,7 +1,15 @@
 <template>
     <div>
         <top-nav />        
-        <nuxt/>
+        <sui-grid centered>
+            <sui-grid-row>
+                <sui-grid-column :mobile="16" :tablet="12" :computer="12">
+                    <sui-divider hidden></sui-divider>
+                    <nuxt/>
+                </sui-grid-column>
+            </sui-grid-row>
+        </sui-grid>
+        
     </div>
 </template>
 

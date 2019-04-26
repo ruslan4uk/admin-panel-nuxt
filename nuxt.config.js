@@ -32,7 +32,8 @@ module.exports = {
      * Customize the progress bar color
      */
     loading: {
-        color: '#3B8070',
+        color: '#2185d0',
+        height: '5px',
     },
 
 
@@ -40,8 +41,9 @@ module.exports = {
      * Route
      */
     router: {
+        linkActiveClass: 'active',
         middleware: [
-            'clearValidationErrors'
+            'clearValidationErrors', 'auth'
         ]
     },
 
@@ -66,29 +68,37 @@ module.exports = {
      * Auth
      */
     auth: {
+      plugins: [
+        '~/plugins/axios'
+      ],
         strategies: {
             local: {
               endpoints: {
                 login: {
-                  url: 'auth/login', method: 'post', propertyName: 'token'
+                  url: 'auth/login', method: 'post', propertyName: 'token.access_token'
                 },
                 user: {
                   url: 'auth/me', method: 'post', propertyName: 'data'
                 },
                 logout: {
-                  method: 'get',
                   url: 'auth/logout', method: 'post'
                 },
-                // dashboard: {
-                //     url: 'dashboard/index', method: 'get', propertyName: 'data'
-                // }
-              }
+                refresh: {
+                  url: 'auth/refresh',
+                  method: 'post',
+                  token: 'access_token',
+                  expiresIn: 'expires_in'
+                },
+              },
+              tokenRequired: true,
+              tokenType: 'Bearer',
+              refreshToken: true
             }
           },
           redirect: {
-            logout: '/auth/login',
             login: '/auth/login',
-            home: '/auth/login'
+            logout: '/auth/login',
+            home: '/'
           },
     },
 
@@ -99,7 +109,10 @@ module.exports = {
         // Simple usage
         '@nuxtjs/axios',
         '@nuxtjs/auth',
-        'bootstrap-vue/nuxt',
+        '@nuxtjs/toast',
+        //'bootstrap-vue/nuxt',
+        'semantic-ui-vue/nuxt', // includes styles from semantic-ui-css
+        //['semantic-ui-vue/nuxt', {css: false}] // if you have your own semantic-ui styles
     ],
 
     /**
@@ -107,6 +120,24 @@ module.exports = {
      */
     axios: {
         baseURL: 'http://localhost:8003/api/v2',
+    },
+
+    /**
+     * Toast
+     */
+    toast: {
+      theme: "outline", 
+      position: "bottom-right", 
+      duration : 5000,
+      register: [ // Register custom toasts
+        {
+          name: 'my-error',
+          message: 'Oops...Something went wrong',
+          options: {
+            type: 'error'
+          }
+        }
+      ]
     },
 
     /**

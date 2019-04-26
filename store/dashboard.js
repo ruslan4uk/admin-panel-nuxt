@@ -23,7 +23,7 @@ export default {
         async loadStuff ({commit}) {
             const data = await this.$axios.$get('dashboard/index')
             commit('SET_DASHBOADR', data)
-          }
+        }
     }
 
 }

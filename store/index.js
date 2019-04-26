@@ -1,21 +1,51 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+export default {
+    namespaced: true,
 
-import validation from './validation'
-
-Vue.use(Vuex)
-
-const debug = process.env.NODE_ENV !== 'production'
-
-
-export const store = new Vuex.Store({
-    modules: {
-        validation,
+    state() {
+        return {
+            btn_loading: false,
+        }
     },
 
-    getters: {},
+    getters: {
+        loading(state) {
+            return state.btn_loading
+        }
+    },
 
-    mutations: {},
+    mutations: {
+        SET_LOADING(state, payload) {
+            state.btn_loading = payload;
+        },
+    },
 
-    strict: debug,
-})
+    actions: {
+        setLoading({ commit }, payload) {
+            commit('SET_LOADING', payload);
+        },
+        deleteLoading({ commit }) {
+            commit('SET_LOADING', false);
+        },
+    },
+}
+
+
+// import Vue from 'vue'
+// import Vuex from 'vuex'
+
+// import validation from './validation'
+
+// Vue.use(Vuex)
+
+// const debug = process.env.NODE_ENV !== 'production'
+
+
+// export const store = new Vuex.Store({
+//     modules: {
+//         validation,
+//     },
+
+    
+
+//     strict: debug,
+// })
