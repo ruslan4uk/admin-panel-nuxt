@@ -29,6 +29,17 @@ module.exports = {
     },
 
     /**
+     * Load plugins
+     */
+    plugins: [
+      { src: '~plugins/vue-editor', ssr: false },
+      './plugins/mixins/validation',
+      './plugins/mixins/user',
+      './plugins/axios',
+      
+    ],
+
+    /**
      * Customize the progress bar color
      */
     loading: {
@@ -46,15 +57,6 @@ module.exports = {
             'clearValidationErrors', 'auth'
         ]
     },
-
-    /**
-     * Load plugins
-     */
-    plugins: [
-        './plugins/mixins/validation',
-        './plugins/mixins/user',
-        './plugins/axios',
-    ],
 
     /**
      * Css
@@ -119,7 +121,7 @@ module.exports = {
      * Axios config
      */
     axios: {
-        baseURL: 'http://localhost:8003/api/v2',
+        baseURL: 'http://localhost:8000/api/v2',
     },
 
     /**
@@ -147,6 +149,7 @@ module.exports = {
         /**
          * Run ESLint on save
          */
+        vendor: ['vue2-editor'],
         extractCSS: true,
         extend(config, ctx) {},
         

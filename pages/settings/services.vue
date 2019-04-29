@@ -31,18 +31,18 @@
                                 <sui-table-cell>{{ service.title }}</sui-table-cell>
                                 <sui-table-cell>{{ service.active ? 'Yes' : 'No' }}</sui-table-cell>
                                 <sui-table-cell text-align="right">
-                                    <sui-dropdown text="Edit" class="dropdown-small" button floating>
-                                        <sui-dropdown-menu>
-                                            <sui-dropdown-item @click="editServices(index)"><sui-icon name="edit" />Edit</sui-dropdown-item>
-                                            <sui-dropdown-item @click="removeServices(service.id, index)"><sui-icon name="delete"/>Remove</sui-dropdown-item>
-                                        </sui-dropdown-menu>
-                                    </sui-dropdown>
+                                    <sui-button icon="left edit" circular color="blue" size="tiny" @click="editServices(index)" />
+                                    <confirm-delete icon="right delete" circular color="red" size="tiny" 
+                                                :currentId="service.id" 
+                                                :currentIndex="index" 
+                                                @delete="removeServices(service.id, index)">
+                                    </confirm-delete>
                                 </sui-table-cell>
                             </sui-table-row>
                         </sui-table-body>
                     </sui-table>
 
-                    <sui-button circular icon="add" @click.native="addServices" content="Add" size="mini" />
+                    <sui-button circular icon="add" @click.native="addServices" content="Add" size="mini" color="green" />
 
                 </sui-grid-column>
             </sui-grid-row>
@@ -59,7 +59,7 @@
 
                     <sui-form @submit.prevent="createServices">
                         <sui-form-field :error="errors.name ? true : false">
-                            <label>Name language</label>
+                            <label>Name service</label>
                             <input v-model="form.title" type="text" placeholder="Name services">
                             <div class="invalid-feedback" v-if="errors.title">
                                 {{ errors.title[0] }}
@@ -85,13 +85,14 @@
 </template>
 
 <script>
+import ConfirmDelete from '~/layouts/partials/ConfirmDelete'
 import LeftNav from '~/layouts/partials/settings/LeftNav'
 import { mapGetters, mapActions } from 'vuex';
 
     export default {
         middleware: 'auth',
 
-        components: { LeftNav },
+        components: { LeftNav, ConfirmDelete },
 
         data() {
             return {

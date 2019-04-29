@@ -13,6 +13,8 @@
     "precommit": "npm run lint"
   },
   "dependencies": {
+    "@ckeditor/ckeditor5-build-classic": "^12.1.0",
+    "@ckeditor/ckeditor5-vue": "^1.0.0-beta.2",
     "@nuxtjs/auth": "^4.5.3",
     "@nuxtjs/axios": "^5.4.1",
     "@nuxtjs/toast": "^3.1.0",
@@ -24,7 +26,11 @@
     "nuxt": "^2.0.0",
     "sass-loader": "^7.1.0",
     "semantic-ui-css": "^2.4.1",
-    "semantic-ui-vue": "^0.8.1"
+    "semantic-ui-vue": "^0.8.1",
+    "vue-ckeditor5": "^0.4.1",
+    "vue-no-ssr": "^1.1.1",
+    "vue-upload-component": "^2.8.20",
+    "vue2-editor": "^2.6.6"
   },
   "devDependencies": {
     "babel-eslint": "^10.0.1",

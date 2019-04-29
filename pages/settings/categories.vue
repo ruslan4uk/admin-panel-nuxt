@@ -31,18 +31,18 @@
                                 <sui-table-cell>{{ category.title }}</sui-table-cell>
                                 <sui-table-cell>{{ category.active ? 'Yes' : 'No' }}</sui-table-cell>
                                 <sui-table-cell text-align="right">
-                                    <sui-dropdown text="Edit" class="dropdown-small" button floating>
-                                        <sui-dropdown-menu>
-                                            <sui-dropdown-item @click="editCategories(index)"><sui-icon name="edit" />Edit</sui-dropdown-item>
-                                            <sui-dropdown-item @click="removeCategories(category.id, index)"><sui-icon name="delete"/>Remove</sui-dropdown-item>
-                                        </sui-dropdown-menu>
-                                    </sui-dropdown>
+                                    <sui-button icon="left edit" circular color="blue" size="tiny" @click="editCategories(index)" />
+                                    <confirm-delete icon="right delete" circular color="red" size="tiny" 
+                                                :currentId="category.id" 
+                                                :currentIndex="index" 
+                                                @delete="removeCategories(category.id, index)">
+                                    </confirm-delete>
                                 </sui-table-cell>
                             </sui-table-row>
                         </sui-table-body>
                     </sui-table>
 
-                    <sui-button circular icon="add" @click.native="addCategories" content="Add" size="mini" />
+                    <sui-button circular icon="add" @click.native="addCategories" content="Add" size="mini" color="green" />
 
                 </sui-grid-column>
             </sui-grid-row>
@@ -85,13 +85,14 @@
 </template>
 
 <script>
+import ConfirmDelete from '~/layouts/partials/ConfirmDelete'
 import LeftNav from '~/layouts/partials/settings/LeftNav'
 import { mapGetters, mapActions } from 'vuex';
 
     export default {
         middleware: 'auth',
 
-        components: { LeftNav },
+        components: { LeftNav, ConfirmDelete },
 
         data() {
             return {
