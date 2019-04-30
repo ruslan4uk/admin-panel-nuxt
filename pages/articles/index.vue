@@ -17,8 +17,14 @@
                     <sui-table-cell>{{ article.title }}</sui-table-cell>
                     <sui-table-cell>{{ article.active ? 'Yes' : 'No' }}</sui-table-cell>
                     <sui-table-cell text-align="right">
-                        <sui-button icon="left edit" circular color="blue" size="tiny" />
-                        <confirm-delete icon="right delete" circular color="red" size="tiny" :currentId="article.id" :currentIndex="index"></confirm-delete>
+                        <nuxt-link :to="'/articles/' + article.id">
+                            <sui-button icon="left edit" circular color="blue" size="tiny" />
+                        </nuxt-link>
+                        <confirm-delete icon="right delete" circular color="red" size="tiny" 
+                            :currentId="article.id" 
+                            :currentIndex="index"
+                            @delete="removeArticles(article.id, index)">
+                        </confirm-delete>
                     </sui-table-cell>
                 </sui-table-row>
             </sui-table-body>
@@ -28,10 +34,7 @@
 
         <paginate :data="articles" offsets="2"  @currentPage="currentPage" />
 
-        <nuxt-link to="/articles/new">
-            <sui-button circular icon="add" content="Add" size="mini" color="green" />
-        </nuxt-link>
-        
+        <sui-button circular icon="add" content="Add" size="mini" color="green" @click="addArticle" />        
         
     </section>
 </template>
@@ -63,6 +66,19 @@ import { mapGetters } from 'vuex';
             currentPage(page) {
                 this.$store.dispatch('pages/articles/getArticles', page);
             },
+
+            addArticle() {
+                this.$axios.get('/articles/create').then(response => {
+                    console.log(response.data.id);
+                    this.$router.push({ path: `/articles/` + response.data.id });
+                })
+            },
+
+            removeArticles(id,index) {
+                this.$store.dispatch('pages/articles/removeArticles', {id,index}).then(() => {
+                    this.$toast.success('Delete successfully')
+                })
+            }
 
         }
 

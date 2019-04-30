@@ -23,10 +23,11 @@
                                 search
                                 selection
                                 v-model="form.country_id"
+                                @input="input"
                             />
                         </sui-form-field>
                         <sui-form-field>
-                            <label>Country</label>
+                            <label>City</label>
                             <sui-dropdown
                                 fluid
                                 :options="cities"
@@ -102,10 +103,6 @@ import axios from 'axios'
         
         methods: {
             handleImageAdded: function(file, Editor, cursorLocation, resetUploader) {
-                // An example of using FormData
-                // NOTE: Your key could be different such as:
-                //formData.append('file', file)                
-
                 var formData = new FormData();
                 formData.append("file", file);
 
@@ -121,6 +118,11 @@ import axios from 'axios'
                     .catch(err => {
                     console.log(err);
                 });
+            },
+
+            input(target) {
+                console.log('Target ', target);
+                
             }
         },
 
