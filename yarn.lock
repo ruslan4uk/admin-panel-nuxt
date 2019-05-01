@@ -7025,11 +7025,6 @@ vm-browserify@0.0.4:
   dependencies:
     indexof "0.0.1"
 
-vue-ckeditor5@^0.4.1:
-  version "0.4.1"
-  resolved "https://registry.yarnpkg.com/vue-ckeditor5/-/vue-ckeditor5-0.4.1.tgz#9153303d467d6e8f7bbfb585e6acf85da0731bba"
-  integrity sha512-5fLMO+mvr/GDINLmXiobhY7r5saGlRZkLGbcuAUZonHgjMFwNOm+fqAu1Kk/JlM3FEuk5d9jmGg+GsS4ENMzJQ==
-
 vue-eslint-parser@^2.0.3:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/vue-eslint-parser/-/vue-eslint-parser-2.0.3.tgz#c268c96c6d94cfe3d938a5f7593959b0ca3360d1"
