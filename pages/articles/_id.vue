@@ -16,11 +16,11 @@
                         <sui-form-field :error="errors.title ? true : false">
                             <label>Avatar</label>
                             <div class="article-avatar">
-                                <label for="article-avatar" class="article-avatar__label"></label>
-                                <input type="file" name="article-avatar" id="article-avatar" class="article-avatar__input">
+                                <label for="article-avatar" class="article-avatar__label" :style="{ 'background-image': 'url(' + avatar + ')' }"></label>
+                                <input type="file" @change="uploadAvatar" ref="avatar" name="article-avatar" id="article-avatar" class="article-avatar__input" accept="image/*" />
                             </div>
-                            <div class="invalid-feedback" v-if="errors.title">
-                                {{ errors.title[0] }}
+                            <div class="invalid-feedback" v-if="errors.avatar">
+                                {{ errors.avatar[0] }}
                             </div>
                         </sui-form-field>
 
@@ -100,7 +100,8 @@ import { mapGetters } from 'vuex'
                 form: {
                     id: this.$route.params.id,
                     title: '',
-                    text: '123',
+                    text: '',
+                    avatar: '',
                     country_id: null,
                     city_id: '',
                     active: '',
@@ -128,7 +129,9 @@ import { mapGetters } from 'vuex'
         },
 
         computed: {
-            
+           avatar() {
+               return this.form.avatar ? this.form.avatar.avatar : 'https://via.placeholder.com/1000x300'
+           }
         },
 
         mounted() {
@@ -143,6 +146,17 @@ import { mapGetters } from 'vuex'
                     .then(response => {
                         this.$toast.success('Update successfully')
                     })
+            },
+
+            uploadAvatar() {
+                var formData = new FormData
+                formData.append('avatar', this.$refs.avatar.files[0])
+                formData.append('page_id', this.$route.params.id)
+                this.$axios.$post('/articles/upload-avatar', formData, {
+                    headers: {'Content-Type': 'multipart/form-data'}
+                }).then(response => {
+                    this.form.avatar = response.data
+                })
             },
 
             handleImageAdded: function(file, Editor, cursorLocation, resetUploader) {
@@ -185,10 +199,12 @@ import { mapGetters } from 'vuex'
     &__label
         display: block
         width: 100%
-        height: 15rem
+        height: 20rem
         border-radius: 25px
         border: 2px solid #4183c4
         cursor: pointer
+        background-size: cover
+        background-position: center center
     &__input
         position: absolute
         left: -9999px
