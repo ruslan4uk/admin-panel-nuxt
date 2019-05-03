@@ -5,16 +5,33 @@
         <sui-divider hidden></sui-divider>
         {{form}}
 
-        <sui-grid divided>
+        <sui-divider></sui-divider>
+
+        <sui-grid divided centered>
             <sui-grid-row>
-                <sui-grid-column :mobile="16" :tablet="10" :computer="10">
+                <sui-grid-column :mobile="16" :tablet="14" :computer="14">
 
                     <sui-form @submit.prevent="saveArticle">
-                        <sui-form-field>
-                            <label>Title</label>
-                            <input placeholder="Title" v-model="form.title" />
+
+                        <sui-form-field :error="errors.title ? true : false">
+                            <label>Avatar</label>
+                            <div class="article-avatar">
+                                <label for="article-avatar" class="article-avatar__label"></label>
+                                <input type="file" name="article-avatar" id="article-avatar" class="article-avatar__input">
+                            </div>
+                            <div class="invalid-feedback" v-if="errors.title">
+                                {{ errors.title[0] }}
+                            </div>
                         </sui-form-field>
-                        <sui-form-field>
+
+                        <sui-form-field :error="errors.title ? true : false">
+                            <label>Title</label>
+                            <input placeholder="Title" v-model="form.title"  />
+                            <div class="invalid-feedback" v-if="errors.title">
+                                {{ errors.title[0] }}
+                            </div>
+                        </sui-form-field>
+                        <sui-form-field :error="errors.country_id ? true : false">
                             <label>Country</label>
                             <sui-dropdown
                                 fluid
@@ -24,8 +41,11 @@
                                 selection
                                 v-model="form.country_id"
                             />
+                            <div class="invalid-feedback" v-if="errors.country_id">
+                                {{ errors.country_id[0] }}
+                            </div>
                         </sui-form-field>
-                        <sui-form-field>
+                        <sui-form-field :error="errors.city_id ? true : false">
                             <label>City</label>
                             <sui-dropdown
                                 fluid
@@ -48,6 +68,9 @@
                                     useCustomImageHandler
                                     @imageAdded="handleImageAdded">
                                 </vue-editor>
+                                <div class="invalid-feedback" v-if="errors.text">
+                                    {{ errors.text[0] }}
+                                </div>
                             </no-ssr>
                         </sui-form-field>
 
@@ -125,18 +148,20 @@ import { mapGetters } from 'vuex'
             handleImageAdded: function(file, Editor, cursorLocation, resetUploader) {
                 var formData = new FormData();
                 formData.append("file", file);
-
+                formData.append('page_id', this.$route.params.id)
                 this.$axios({
                     url: "/articles/upload",
                     method: "POST",
                     data: formData
-                }).then(result => {
-                    let url = result.data.file; // Get url from response
+                }).then(response => {
+                    console.log(response.data.file);
+                    
+                    let url = response.data.file; // Get url from response
                     Editor.insertEmbed(cursorLocation, "image", url);
                     resetUploader();
                     })
                     .catch(err => {
-                    console.log(err);
+                    this.$toast.error('Неправильный формат изображения')
                 });
             },
 
@@ -155,6 +180,16 @@ import { mapGetters } from 'vuex'
     }
 </script>
 
-<style lang="scss" scoped>
-
+<style lang="sass" scoped>
+.article-avatar
+    &__label
+        display: block
+        width: 100%
+        height: 15rem
+        border-radius: 25px
+        border: 2px solid #4183c4
+        cursor: pointer
+    &__input
+        position: absolute
+        left: -9999px
 </style>

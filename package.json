@@ -13,8 +13,6 @@
     "precommit": "npm run lint"
   },
   "dependencies": {
-    "@ckeditor/ckeditor5-build-classic": "^12.1.0",
-    "@ckeditor/ckeditor5-vue": "^1.0.0-beta.2",
     "@nuxtjs/auth": "^4.5.3",
     "@nuxtjs/axios": "^5.4.1",
     "@nuxtjs/toast": "^3.1.0",
