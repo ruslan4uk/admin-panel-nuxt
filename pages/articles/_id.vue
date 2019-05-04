@@ -3,7 +3,6 @@
         
         <sui-header size="huge"><nuxt-link to="/articles">Articles</nuxt-link> / Create or update new article</sui-header>
         <sui-divider hidden></sui-divider>
-        {{form}}
 
         <sui-divider></sui-divider>
 
@@ -78,7 +77,8 @@
 
                         <sui-form-field>
                             <sui-checkbox label="Active" v-model="form.active" />
-                            </sui-form-field>
+                        </sui-form-field>
+                        
                         <sui-button type="submit" color="green" icon="icon save" circular>Save</sui-button>
                     </sui-form>
                     
@@ -104,7 +104,7 @@ import { mapGetters } from 'vuex'
                     avatar: '',
                     country_id: null,
                     city_id: '',
-                    active: '',
+                    active: true,
                 },
                 countries: [],
                 cities: [],

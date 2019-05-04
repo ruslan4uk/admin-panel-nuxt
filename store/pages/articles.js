@@ -4,7 +4,7 @@ export default {
     store() {
         return {
             articles: {},
-            paginate: {},
+            //paginate: {},
         }
     },
 
