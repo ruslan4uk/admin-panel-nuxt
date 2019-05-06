@@ -16,7 +16,14 @@ export default {
     mutations: {
         SET_COMMENTS (state, payload) {
             state.comments = payload
-        }
+        },
+
+        CHANGE_STATUS (state, payload) {
+            state.comments.data[payload.index].active = payload.active
+        },
+        REMOVE_COMMENT(state, payload) {
+            state.comments.data.splice(payload, 1);
+        },
     },
 
     actions: {
@@ -32,7 +39,21 @@ export default {
                 
                 commit('SET_COMMENTS', response.data.data)
             })
+        },
+
+        async publicComment ({ commit }, payload) {
+            commit('CHANGE_STATUS', payload);
+        },
+
+        removeComment({ commit, dispatch }, payload ) {
+            return new Promise((resolve, reject) => {
+                this.$axios.delete('/comments/' + payload.id).then(() => {
+                    commit('REMOVE_COMMENT', payload.index)
+                    resolve()
+                })
+            })   
         }
+
     }
 
 }
